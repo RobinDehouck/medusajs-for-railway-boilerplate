@@ -8,9 +8,9 @@ import { ProductCollectionWithPreviews } from "types/global"
 import { cache } from "react"
 
 export const metadata: Metadata = {
-  title: "Medusa Next.js Starter Template",
+  title: "Summum Bat",
   description:
-    "A performant frontend ecommerce starter template with Next.js 14 and Medusa.",
+    "Summum Bat est le spécialiste de l'énergie solaire à Lille. Découvrez nos kits solaires, panneaux solaires et accessoires pour l'autoconsommation.",
 }
 
 const getCollectionsWithProducts = cache(
