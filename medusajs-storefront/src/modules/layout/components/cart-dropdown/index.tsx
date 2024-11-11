@@ -81,7 +81,8 @@ const CartDropdown = ({
           <LocalizedClientLink
             className="hover:text-ui-fg-base"
             href="/cart"
-          >{`Cart (${totalItems})`}</LocalizedClientLink>
+            data-testid="nav-cart-link"
+          >{`Panier (${totalItems})`}</LocalizedClientLink>
         </Popover.Button>
         <Transition
           show={cartDropdownOpen}
@@ -96,9 +97,10 @@ const CartDropdown = ({
           <Popover.Panel
             static
             className="hidden small:block absolute top-[calc(100%+1px)] right-0 bg-white border-x border-b border-gray-200 w-[420px] text-ui-fg-base"
+            data-testid="nav-cart-dropdown"
           >
             <div className="p-4 flex items-center justify-center">
-              <h3 className="text-large-semi">Cart</h3>
+              <h3 className="text-large-semi">Panier</h3>
             </div>
             {cartState && cartState.items?.length ? (
               <>
@@ -111,6 +113,7 @@ const CartDropdown = ({
                       <div
                         className="grid grid-cols-[122px_1fr] gap-x-4"
                         key={item.id}
+                        data-testid="cart-item"
                       >
                         <LocalizedClientLink
                           href={`/products/${item.variant.product.handle}`}
@@ -125,12 +128,22 @@ const CartDropdown = ({
                                 <h3 className="text-base-regular overflow-hidden text-ellipsis">
                                   <LocalizedClientLink
                                     href={`/products/${item.variant.product.handle}`}
+                                    data-testid="product-link"
                                   >
                                     {item.title}
                                   </LocalizedClientLink>
                                 </h3>
-                                <LineItemOptions variant={item.variant} />
-                                <span>Quantity: {item.quantity}</span>
+                                <LineItemOptions
+                                  variant={item.variant}
+                                  data-testid="cart-item-variant"
+                                  data-value={item.variant}
+                                />
+                                <span
+                                  data-testid="cart-item-quantity"
+                                  data-value={item.quantity}
+                                >
+                                  Quantité: {item.quantity}
+                                </span>
                               </div>
                               <div className="flex justify-end">
                                 <LineItemPrice
@@ -141,8 +154,12 @@ const CartDropdown = ({
                               </div>
                             </div>
                           </div>
-                          <DeleteButton id={item.id} className="mt-1">
-                            Remove
+                          <DeleteButton
+                            id={item.id}
+                            className="mt-1"
+                            data-testid="cart-item-remove-button"
+                          >
+                            Retirer
                           </DeleteButton>
                         </div>
                       </div>
@@ -151,10 +168,14 @@ const CartDropdown = ({
                 <div className="p-4 flex flex-col gap-y-4 text-small-regular">
                   <div className="flex items-center justify-between">
                     <span className="text-ui-fg-base font-semibold">
-                      Subtotal{" "}
-                      <span className="font-normal">(excl. taxes)</span>
+                      Sous-total{" "}
+                      <span className="font-normal">(HT)</span>
                     </span>
-                    <span className="text-large-semi">
+                    <span
+                      className="text-large-semi"
+                      data-testid="cart-subtotal"
+                      data-value={cartState.subtotal || 0}
+                    >
                       {formatAmount({
                         amount: cartState.subtotal || 0,
                         region: cartState.region,
@@ -163,8 +184,12 @@ const CartDropdown = ({
                     </span>
                   </div>
                   <LocalizedClientLink href="/cart" passHref>
-                    <Button className="w-full" size="large">
-                      Go to cart
+                    <Button
+                      className="w-full"
+                      size="large"
+                      data-testid="go-to-cart-button"
+                    >
+                      Voir le panier
                     </Button>
                   </LocalizedClientLink>
                 </div>
@@ -175,12 +200,12 @@ const CartDropdown = ({
                   <div className="bg-gray-900 text-small-regular flex items-center justify-center w-6 h-6 rounded-full text-white">
                     <span>0</span>
                   </div>
-                  <span>Your shopping bag is empty.</span>
+                  <span>Votre panier est vide.</span>
                   <div>
                     <LocalizedClientLink href="/store">
                       <>
-                        <span className="sr-only">Go to all products page</span>
-                        <Button onClick={close}>Explore products</Button>
+                        <span className="sr-only">Voir tous les produits</span>
+                        <Button onClick={close}>Voir produits</Button>
                       </>
                     </LocalizedClientLink>
                   </div>
