@@ -121,7 +121,7 @@ const SolarPage: React.FC = () => {
                 
                 <div className="flex flex-wrap items-center gap-8 mb-10">
                   <a 
-                    href="/products/jasolar-1780" 
+                    href="/products/test-panneau-solaire" 
                     className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-green-500 to-green-600 text-white rounded-xl font-semibold hover:from-green-600 hover:to-green-700 transition-all duration-300 transform hover:scale-105 hover:shadow-lg group"
                   >
                     Voir le kit
